@@ -135,6 +135,11 @@ jobs:
         working-directory: openWRT
         run: ./scripts/feeds update -a && ./scripts/feeds install -a
 
+      - name: SSH 调试
+        uses: mxschmitt/action-tmate@v3
+        with:
+        limit-access-to-actor: false # 放宽限制，防止卡死
+        
       - name: 使用ssh连接编译环境，限时15分钟，可在连接后输入命令 `touch /tmp/keepalive` 保活 (Connect to the build environment using ssh)
         if: ${{inputs.ssh == true}}
         uses: mxschmitt/action-tmate@v3
